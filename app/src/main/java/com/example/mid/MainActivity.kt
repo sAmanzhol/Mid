@@ -1,5 +1,7 @@
 package com.example.mid
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
@@ -7,25 +9,32 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.example.lab3.utils.PreferenceUtils
 import com.example.mid.adapter.TodoAdapter
-import com.example.mid.db.AppDatabase
+import com.example.mid.db.entities.Todo
+import com.example.mid.db.repositroy.TodoRepository
+import com.example.mid.db.viewModel.TodoViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    private val viewModel by lazy {
+        ViewModelProviders.of(this,
+            TodoViewModel.Factory(TodoRepository()))[TodoViewModel::class.java]
+    }
 
+    private var todos: List<Todo>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initUI()
-
     }
 
     private fun initUI() {
         todo_list.layoutManager = LinearLayoutManager(this)
-        AsyncTask.execute {
-            val todos = AppDatabase.getDatabase(applicationContext)
-                ?.getTodoDao()
-                ?.getAllTodo()
 
+        AsyncTask.execute {
+            viewModel.liveData.observe(this, Observer { data ->
+                todos = data
+            })
+            viewModel.loadSomeData(applicationContext)
             runOnUiThread {
                 val adapter = TodoAdapter(todos!!)
                 todo_list.adapter = adapter
