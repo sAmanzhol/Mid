@@ -6,4 +6,5 @@ import com.example.mid.db.entities.Todo
 
 interface ITodoRepository {
     fun getTodo(application: Context): List<Todo>
+    fun addTodo(application: Context, todo: Todo)
 }

@@ -21,6 +21,10 @@ class TodoViewModel(
         mutableLiveData.postValue(repository.getTodo(application))
     }
 
+    fun addTodo(application: Context, todo: Todo) {
+        repository.addTodo(application, todo)
+    }
+
     class Factory(private val repository: ITodoRepository) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
