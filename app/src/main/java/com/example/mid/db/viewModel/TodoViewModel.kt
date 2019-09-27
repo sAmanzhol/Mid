@@ -1,6 +1,5 @@
 package com.example.mid.db.viewModel
 
-import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider

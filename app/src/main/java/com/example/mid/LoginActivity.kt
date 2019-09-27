@@ -1,5 +1,7 @@
 package com.example.mid
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.opengl.ETC1.isValid
 import android.os.AsyncTask
@@ -8,10 +10,21 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.lab3.utils.PreferenceUtils
 import com.example.mid.db.AppDatabase
+import com.example.mid.db.entities.Todo
 import com.example.mid.db.entities.User
+import com.example.mid.db.repositroy.LoginRepository
+import com.example.mid.db.repositroy.TodoRepository
+import com.example.mid.db.viewModel.LoginViewModel
+import com.example.mid.db.viewModel.TodoViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
+    private val viewModel by lazy {
+        ViewModelProviders.of(this,
+            LoginViewModel.Factory(LoginRepository()))[LoginViewModel::class.java]
+    }
+
+    private var user: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +44,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun validateAndSignIn(email: String, password: String) {
         AsyncTask.execute {
-            val user = AppDatabase.getDatabase(applicationContext)
-                ?.getUserDao()
-                ?.getUserWithEmailAndPassword(email, password)
+            viewModel.loadUser(applicationContext, email, password)
+            viewModel.liveData.observe(this, Observer { data ->
+                user = data
 
+            })
             if (user == null) {
                 runOnUiThread {
                     Toast.makeText(baseContext, "Email or password incorrect! ", Toast.LENGTH_LONG).show()
