@@ -4,8 +4,8 @@ import android.content.Context
 import com.example.mid.db.entities.User
 
 interface ILoginRepository {
-    fun getUser(application: Context, email: String, password: String): User
-    fun signUp(application: Context, user: User)
-    fun isExist(application: Context, email: String): Boolean
+    suspend fun getUser(email: String, password: String): User
+    suspend fun signUp(user: User)
+    suspend fun isExist(email: String): Boolean
 
 }

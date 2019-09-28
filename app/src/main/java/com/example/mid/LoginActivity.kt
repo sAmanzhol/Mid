@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : AppCompatActivity() {
     private val viewModel by lazy {
         ViewModelProviders.of(this,
-            LoginViewModel.Factory(LoginRepository()))[LoginViewModel::class.java]
+            LoginViewModel.Factory(LoginRepository(AppDatabase.getDatabase(applicationContext)!!.getUserDao())))[LoginViewModel::class.java]
     }
 
     private var user: User? = null
@@ -43,22 +43,22 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun validateAndSignIn(email: String, password: String) {
-        AsyncTask.execute {
+
             viewModel.loadUser(applicationContext, email, password)
             viewModel.liveData.observe(this, Observer { data ->
                 user = data
-
-            })
-            if (user == null) {
-                runOnUiThread {
-                    Toast.makeText(baseContext, "Email or password incorrect! ", Toast.LENGTH_LONG).show()
+                if (user == null) {
+                    runOnUiThread {
+                        Toast.makeText(baseContext, "Email or password incorrect! ", Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    PreferenceUtils.saveLogged(this, true)
+                    PreferenceUtils.saveCurrentEmail(this, email)
+                    startActivity(Intent(this, MainActivity::class.java))
                 }
-            } else {
-                PreferenceUtils.saveLogged(this, true)
-                PreferenceUtils.saveCurrentEmail(this, email)
-                startActivity(Intent(this, MainActivity::class.java))
-            }
-        }
+            })
+
+
     }
 
     override fun onBackPressed() {

@@ -29,17 +29,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun initUI() {
         todo_list.layoutManager = LinearLayoutManager(this)
-
-        AsyncTask.execute {
-            viewModel.liveData.observe(this, Observer { data ->
-                todos = data
-            })
-            viewModel.loadSomeData(applicationContext)
-            runOnUiThread {
-                val adapter = TodoAdapter(todos!!)
-                todo_list.adapter = adapter
-            }
-        }
+        viewModel.liveData.observe(this, Observer { data ->
+            todos = data
+            val adapter = TodoAdapter(todos!!)
+            todo_list.adapter = adapter
+        })
+        viewModel.loadSomeData(applicationContext)
 
         if (!PreferenceUtils.getLogged(this)) startActivity(Intent(this, LoginActivity::class.java))
 

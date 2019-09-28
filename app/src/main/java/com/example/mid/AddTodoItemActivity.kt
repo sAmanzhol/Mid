@@ -18,7 +18,7 @@ class AddTodoItemActivity : AppCompatActivity() {
     private val viewModel by lazy {
         ViewModelProviders.of(
             this,
-            TodoViewModel.Factory(TodoRepository())
+            TodoViewModel.Factory(TodoRepository(AppDatabase.getDatabase(applicationContext)!!.getTodoDao()))
         )[TodoViewModel::class.java]
     }
 

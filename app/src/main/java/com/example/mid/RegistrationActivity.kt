@@ -20,7 +20,7 @@ class RegistrationActivity : AppCompatActivity() {
 
     private val viewModel by lazy {
         ViewModelProviders.of(this,
-            LoginViewModel.Factory(LoginRepository()))[LoginViewModel::class.java]
+            LoginViewModel.Factory(LoginRepository(AppDatabase.getDatabase(applicationContext)!!.getUserDao())))[LoginViewModel::class.java]
     }
 
     private var isExist: Boolean? = false
@@ -42,30 +42,31 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun validateAndSignUp(email: String, password: String, name: String, surname: String){
-        AsyncTask.execute {
+
             viewModel.loadUserWithEmail(applicationContext, email)
             viewModel.isExistLiveData.observe(this, Observer { data ->
                isExist = data
-           })
-           if (isExist!!) {
-               runOnUiThread {
-                   Toast.makeText(baseContext, "Email already exist! ", Toast.LENGTH_LONG).show()
-               }
-           } else {
-               if (isValid(email, password, name, surname)) {
-                   viewModel.signUp(applicationContext,
-                       User(
-                           email = email,
-                           password = password,
-                           name = name,
-                           surname = surname
-                       )
-                   )
+                if (isExist!!) {
+                    runOnUiThread {
+                        Toast.makeText(baseContext, "Email already exist! ", Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    if (isValid(email, password, name, surname)) {
+                        viewModel.signUp(applicationContext,
+                            User(
+                                email = email,
+                                password = password,
+                                name = name,
+                                surname = surname
+                            )
+                        )
 
-                   startActivity(Intent(this, LoginActivity::class.java))
-               }
-           }
-       }
+                        startActivity(Intent(this, LoginActivity::class.java))
+                    }
+                }
+           })
+
+
     }
 
     private fun isValid(email: String, password: String, name: String, surname: String): Boolean {

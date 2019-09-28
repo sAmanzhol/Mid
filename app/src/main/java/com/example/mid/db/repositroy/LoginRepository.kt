@@ -1,20 +1,29 @@
 package com.example.mid.db.repositroy
 
-import android.content.Context
-import com.example.mid.db.AppDatabase
+import com.example.mid.db.dao.UserDao
 import com.example.mid.db.entities.User
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-class LoginRepository: ILoginRepository {
+class LoginRepository(private val userDao: UserDao): ILoginRepository {
 
-    override fun signUp(application: Context, user: User) {
-        return AppDatabase.getDatabase(application)?.getUserDao()?.insertUser(user)!!
+    override suspend fun signUp(user: User) {
+        return withContext(Dispatchers.IO) {
+             userDao.insertUser(user)!!
+
+        }
     }
 
-    override fun isExist(application: Context, email: String): Boolean {
-        return AppDatabase.getDatabase(application)?.getUserDao()?.getUserWithEmail(email) != null
+    override suspend fun isExist(email: String): Boolean {
+        return withContext(Dispatchers.IO) {
+           userDao.getUserWithEmail(email) != null
+        }
     }
 
-    override fun getUser(application: Context, email: String, password: String): User {
-        return AppDatabase.getDatabase(application)?.getUserDao()?.getUserWithEmailAndPassword(email, password)!!
+    override suspend fun getUser(email: String, password: String): User {
+        return withContext(Dispatchers.IO) {
+            userDao.getUserWithEmailAndPassword(email, password)!!
+        }
+
     }
 }
