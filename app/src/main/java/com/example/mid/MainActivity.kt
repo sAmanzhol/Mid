@@ -44,10 +44,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
-        addBtn.setOnClickListener {
-            startActivity(Intent(this, AddTodoItemActivity::class.java))
-        }
-
     }
 
     private fun requestDragonList(call: Call<List<Dragon>>) {

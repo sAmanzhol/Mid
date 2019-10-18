@@ -12,7 +12,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class TodoViewModel(
+class DragonViewModel(
     private val repository: ITodoRepository
 ) : ViewModel(), CoroutineScope {
 
@@ -40,8 +40,8 @@ class TodoViewModel(
     class Factory(private val repository: ITodoRepository) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(TodoViewModel::class.java)) {
-                return TodoViewModel(repository) as T
+            if (modelClass.isAssignableFrom(DragonViewModel::class.java)) {
+                return DragonViewModel(repository) as T
             }
 
             throw IllegalStateException("Cannot create an instance of viewmodel")

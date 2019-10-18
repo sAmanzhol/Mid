@@ -20,14 +20,4 @@
             android:id="@+id/todo_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-
-    <ImageButton
-            android:id="@+id/addBtn"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:scaleType="fitXY"
-            android:background="@color/empty"
-            android:src="@drawable/dobavit"
-            android:layout_gravity="bottom|end"/>
-
 </FrameLayout>

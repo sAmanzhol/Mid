@@ -5,7 +5,7 @@ import com.example.mid.db.dao.UserDao
 import com.example.mid.db.repositroy.LoginRepository
 import com.example.mid.db.repositroy.TodoRepository
 import com.example.mid.db.viewModel.LoginViewModel
-import com.example.mid.db.viewModel.TodoViewModel
+import com.example.mid.db.viewModel.DragonViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -25,5 +25,5 @@ val repoModule = module {
 
 val viewModelModule = module {
     viewModel { LoginViewModel(get() as LoginRepository) }
-    viewModel { TodoViewModel(get() as TodoRepository) }
+    viewModel { DragonViewModel(get() as TodoRepository) }
 }
