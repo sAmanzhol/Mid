@@ -43,7 +43,7 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun validateAndSignUp(email: String, password: String, name: String, surname: String){
 
-            viewModel.loadUserWithEmail(applicationContext, email)
+            viewModel.loadUserWithEmail(email)
             viewModel.isExistLiveData.observe(this, Observer { data ->
                isExist = data
                 if (isExist!!) {
@@ -52,7 +52,7 @@ class RegistrationActivity : AppCompatActivity() {
                     }
                 } else {
                     if (isValid(email, password, name, surname)) {
-                        viewModel.signUp(applicationContext,
+                        viewModel.signUp(
                             User(
                                 email = email,
                                 password = password,

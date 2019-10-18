@@ -25,15 +25,15 @@ class TodoViewModel(
     val liveData: MutableLiveData<List<Todo>>
         get() = mutableLiveData
 
-    fun loadSomeData(application: Context) {
+    fun loadSomeData() {
         launch {
-            mutableLiveData.postValue(repository.getTodo(application))
+            mutableLiveData.postValue(repository.getTodo())
         }
     }
 
-    fun addTodo(application: Context, todo: Todo) {
+    fun addTodo(todo: Todo) {
         launch {
-            repository.addTodo(application, todo)
+            repository.addTodo(todo)
         }
     }
 

@@ -40,7 +40,7 @@ class AddTodoItemActivity : AppCompatActivity() {
     private fun validateAndAddTodo(title: String, content: String, email: String, priority: String) {
         if (isValid(title, content)) {
             AsyncTask.execute {
-                viewModel.addTodo(applicationContext,
+                viewModel.addTodo(
                     Todo(
                         title = title,
                         content = content,

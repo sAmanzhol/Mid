@@ -31,21 +31,21 @@ class LoginViewModel (
     val isExistLiveData: MutableLiveData<Boolean>
         get() = isExistMutableLiveData
 
-    fun loadUser(application: Context, email: String, password: String) {
+    fun loadUser( email: String, password: String) {
         launch {
-            mutableLiveData.postValue(repository.getUser(application, email, password))
+            mutableLiveData.postValue(repository.getUser( email, password))
         }
     }
 
-    fun loadUserWithEmail(application: Context, email: String) {
+    fun loadUserWithEmail( email: String) {
         launch {
-            isExistMutableLiveData.postValue(repository.isExist(application, email))
+            isExistMutableLiveData.postValue(repository.isExist( email))
         }
     }
 
-    fun signUp(application: Context, user: User) {
+    fun signUp( user: User) {
         launch {
-            repository.signUp(application, user)
+            repository.signUp( user)
         }
     }
 

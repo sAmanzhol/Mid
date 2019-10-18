@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun validateAndSignIn(email: String, password: String) {
 
-            viewModel.loadUser(applicationContext, email, password)
+            viewModel.loadUser(email, password)
             viewModel.liveData.observe(this, Observer { data ->
                 user = data
                 if (user == null) {
