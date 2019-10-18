@@ -36,6 +36,10 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
 
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+
     implementation "org.koin:koin-android:2.0.1"
     implementation 'org.koin:koin-android-viewmodel:2.0.1'
     kapt "android.arch.persistence.room:compiler:$roomVersion"
