@@ -9,21 +9,13 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.lab3.utils.PreferenceUtils
-import com.example.mid.db.AppDatabase
-import com.example.mid.db.entities.Todo
 import com.example.mid.db.entities.User
-import com.example.mid.db.repositroy.LoginRepository
-import com.example.mid.db.repositroy.TodoRepository
 import com.example.mid.db.viewModel.LoginViewModel
-import com.example.mid.db.viewModel.TodoViewModel
 import kotlinx.android.synthetic.main.activity_login.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
-    private val viewModel by lazy {
-        ViewModelProviders.of(this,
-            LoginViewModel.Factory(LoginRepository(AppDatabase.getDatabase(applicationContext)!!.getUserDao())))[LoginViewModel::class.java]
-    }
-
+    private val viewModel: LoginViewModel by viewModel()
     private var user: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

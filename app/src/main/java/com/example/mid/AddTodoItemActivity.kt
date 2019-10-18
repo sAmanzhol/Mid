@@ -13,14 +13,10 @@ import com.example.mid.db.entities.User
 import com.example.mid.db.repositroy.TodoRepository
 import com.example.mid.db.viewModel.TodoViewModel
 import kotlinx.android.synthetic.main.activity_add_todo_item.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class AddTodoItemActivity : AppCompatActivity() {
-    private val viewModel by lazy {
-        ViewModelProviders.of(
-            this,
-            TodoViewModel.Factory(TodoRepository(AppDatabase.getDatabase(applicationContext)!!.getTodoDao()))
-        )[TodoViewModel::class.java]
-    }
+    private val viewModel: TodoViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

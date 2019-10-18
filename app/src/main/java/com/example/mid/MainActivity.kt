@@ -1,26 +1,19 @@
 package com.example.mid
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.example.lab3.utils.PreferenceUtils
 import com.example.mid.adapter.TodoAdapter
-import com.example.mid.db.AppDatabase
 import com.example.mid.db.entities.Todo
-import com.example.mid.db.repositroy.TodoRepository
 import com.example.mid.db.viewModel.TodoViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel by lazy {
-        ViewModelProviders.of(
-            this,
-            TodoViewModel.Factory(TodoRepository(AppDatabase.getDatabase(applicationContext)!!.getTodoDao()))
-        )[TodoViewModel::class.java]
-    }
+    private val viewModel: TodoViewModel by viewModel()
 
     private var todos: List<Todo>? = null
     override fun onCreate(savedInstanceState: Bundle?) {

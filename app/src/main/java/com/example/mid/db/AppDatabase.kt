@@ -9,13 +9,13 @@ import com.example.mid.db.dao.UserDao
 import com.example.mid.db.entities.Todo
 import com.example.mid.db.entities.User
 
-@Database(entities = [User::class, Todo::class], version = 2)
+@Database(entities = [User::class, Todo::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getUserDao(): UserDao
     abstract fun getTodoDao(): TodoDao
 
     companion object {
-        private const val DB_NAME = "users.db"
+        public const val DB_NAME = "users.db"
         var instance: AppDatabase? = null
 
         fun getDatabase(context: Context): AppDatabase? {
