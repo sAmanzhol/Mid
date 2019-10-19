@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mid.R
 import com.example.mid.model.Dragon
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_todo.view.*
 
 class DragonAdapter(private val dragonList: List<Dragon>)
@@ -23,8 +24,9 @@ class DragonAdapter(private val dragonList: List<Dragon>)
 
     inner class DragonViewHolder(val view: View): RecyclerView.ViewHolder(view) {
         fun bindDragon(dragon: Dragon) {
-            view.title.text = dragon.name
-            view.priority.text = dragon.type
+            Picasso.get().load(dragon.flickrImages?.get(0)).into(view.movie_poster_view)
+            view.title.text = "Name: " + dragon.name
+            view.priority.text = "Type: " + dragon.type
             view.content.text = dragon.description
         }
     }

@@ -21,8 +21,6 @@
         </activity>
         <activity android:name=".RegistrationActivity">
         </activity>
-        <activity android:name=".AddTodoItemActivity">
-        </activity>
     </application>
 
 </manifest>

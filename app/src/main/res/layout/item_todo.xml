@@ -6,6 +6,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/part"
         android:padding="@dimen/padding">
+
     <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -20,10 +21,15 @@
             android:layout_height="wrap_content"
             android:textSize="15sp"
             tools:text="Priority"/>
-
+    <ImageView
+            android:id="@+id/movie_poster_view"
+            android:layout_width="@dimen/poster_width"
+            android:layout_height="@dimen/poster_height"
+            android:src="@drawable/poster1"
+            android:scaleType="fitXY"/>
     <TextView
             android:id="@+id/content"
-            android:layout_width="wrap_content"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
             android:textSize="17sp"
             tools:text="Content"/>
