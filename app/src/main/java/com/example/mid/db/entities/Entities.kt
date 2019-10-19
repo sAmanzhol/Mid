@@ -12,10 +12,7 @@ data class User(
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "surname") val surname: String)
 
-@Entity(tableName = "Todos")
-data class Todo(
+@Entity(tableName = "Facts")
+data class Fact(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
-    @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "content") val content: String,
-    @ColumnInfo(name = "priority") val priority: String,
-    @ColumnInfo(name = "email") val email: String)
+    @ColumnInfo(name = "text") val text: String)

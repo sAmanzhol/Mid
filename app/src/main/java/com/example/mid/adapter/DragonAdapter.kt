@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.mid.R
-import com.example.mid.model.Dragon
+import com.example.mid.db.entities.Fact
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_todo.view.*
 
-class DragonAdapter(private val dragonList: List<Dragon>)
+class DragonAdapter(private val dragonList: List<Fact>)
     : RecyclerView.Adapter<DragonAdapter.DragonViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
@@ -23,11 +23,11 @@ class DragonAdapter(private val dragonList: List<Dragon>)
     override fun getItemCount() = dragonList.size
 
     inner class DragonViewHolder(val view: View): RecyclerView.ViewHolder(view) {
-        fun bindDragon(dragon: Dragon) {
-            Picasso.get().load(dragon.flickrImages?.get(0)).into(view.movie_poster_view)
-            view.title.text = "Name: " + dragon.name
-            view.priority.text = "Type: " + dragon.type
-            view.content.text = dragon.description
+        fun bindDragon(fact: Fact) {
+
+            view.title.text = "Name: ";
+            view.priority.text = "Type:";
+            view.content.text = fact.text
         }
     }
 }

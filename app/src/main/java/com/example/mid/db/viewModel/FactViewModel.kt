@@ -3,45 +3,39 @@ package com.example.mid.db.viewModel
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import android.content.Context
-import com.example.mid.db.entities.Todo
-import com.example.mid.db.repositroy.ITodoRepository
+import com.example.mid.db.entities.Fact
+import com.example.mid.db.repositroy.IFactRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class DragonViewModel(
-    private val repository: ITodoRepository
+class FactViewModel(
+    private val repository: IFactRepository
 ) : ViewModel(), CoroutineScope {
 
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    private val mutableLiveData = MutableLiveData<List<Todo>>()
+    private val mutableLiveData = MutableLiveData<List<Fact>>()
 
-    val liveData: MutableLiveData<List<Todo>>
+    val liveData: MutableLiveData<List<Fact>>
         get() = mutableLiveData
 
     fun loadSomeData() {
         launch {
-            mutableLiveData.postValue(repository.getTodo())
+            mutableLiveData.postValue(repository.getFact())
         }
     }
 
-    fun addTodo(todo: Todo) {
-        launch {
-            repository.addTodo(todo)
-        }
-    }
 
-    class Factory(private val repository: ITodoRepository) : ViewModelProvider.Factory {
+    class Factory(private val repository: IFactRepository) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(DragonViewModel::class.java)) {
-                return DragonViewModel(repository) as T
+            if (modelClass.isAssignableFrom(FactViewModel::class.java)) {
+                return FactViewModel(repository) as T
             }
 
             throw IllegalStateException("Cannot create an instance of viewmodel")

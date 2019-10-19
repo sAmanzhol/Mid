@@ -4,10 +4,8 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.content.Context
-import com.example.mid.db.entities.Todo
 import com.example.mid.db.entities.User
 import com.example.mid.db.repositroy.ILoginRepository
-import com.example.mid.db.repositroy.ITodoRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
